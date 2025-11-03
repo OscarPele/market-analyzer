@@ -1,4 +1,4 @@
-package com.oscar.market.metrics.macd;
+package com.oscar.market.metrics.tendencies.macd;
 
 import java.util.ArrayList;
 import java.util.List;

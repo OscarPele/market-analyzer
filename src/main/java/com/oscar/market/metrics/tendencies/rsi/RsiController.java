@@ -1,4 +1,4 @@
-package com.oscar.market.metrics.rsi;
+package com.oscar.market.metrics.tendencies.rsi;
 
 import java.util.Map;
 

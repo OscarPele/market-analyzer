@@ -1,6 +1,10 @@
 spring:
   application:
     name: market
+
+  profiles:
+    active: dev
+
   autoconfigure:
     exclude:
       - org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration
@@ -10,22 +14,62 @@ spring:
     username: ${DB_USER}
     password: ${DB_PASSWORD}
     driver-class-name: org.postgresql.Driver
+    hikari:
+      pool-name: market-pool
+      minimum-idle: 2
+      maximum-pool-size: 10
+      idle-timeout: 30000
+      max-lifetime: 120000
+      connection-timeout: 10000
+      leak-detection-threshold: 0
 
   jpa:
     hibernate:
       ddl-auto: update
+    open-in-view: false
+    show-sql: false
     properties:
       hibernate:
         default_schema: market_schema
         hbm2ddl:
           create_namespaces: true
-        format_sql: true
+        format_sql: false
+        jdbc:
+          batch_size: 100
+          fetch_size: 50
+        order_inserts: true
+        order_updates: true
+        generate_statistics: false
+        connection.provider_disables_autocommit: true
+        default_batch_fetch_size: 32
 
-  profiles:
-    active: dev
+  task:
+    scheduling:
+      pool:
+        size: 2
 
 management:
   endpoints:
     web:
       exposure:
         include: health,info
+
+market:
+  ws:
+    enabled: true
+    symbols-tracked: BTCUSDT,BTCUSDC
+    min-notional: 50
+    buffer-capacity: 20000
+    batch-size: 200
+    flush-interval-ms: 1000
+  retention:
+    days: 7
+
+
+logging:
+  level:
+    root: INFO
+    org.springframework: INFO
+    org.hibernate.SQL: WARN
+    org.hibernate.orm.jdbc.bind: WARN
+    org.hibernate.type.descriptor.sql: WARN

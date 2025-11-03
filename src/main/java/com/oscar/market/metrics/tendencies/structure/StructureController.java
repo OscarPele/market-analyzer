@@ -1,4 +1,4 @@
-package com.oscar.market.metrics.structure;
+package com.oscar.market.metrics.tendencies.structure;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

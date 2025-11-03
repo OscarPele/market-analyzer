@@ -1,4 +1,4 @@
-package com.oscar.market.metrics.ema;
+package com.oscar.market.metrics.tendencies.ema;
 
 import java.util.Map;
 
